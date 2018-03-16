@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+	echo "Please provide a string pattern to search."
+	exit
+fi
+
+if [ -z "$2" ]
+then
+	path="./"
+else
+	path=$2
+fi
+
+find ${path} -name "*$1*"

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+help () {
+	echo Please provide an option:
+	echo -a all
+	echo -d data only
+	echo -v variables settings only
+	echo -s sites settings only
+	echo -h to see me again
+}
+option=$1
+
+#default
+user="xzhou"
+host=$option".west.isilon.com"
+
+if [ $# -eq 0 ]
+then
+	help
+else
+	while read line
+	do
+		key=`echo $line | awk '{ print $1 }'`
+		if [ $key = $option ]
+		then
+			user=`echo $line | awk '{ print $3 }'`
+			host=`echo $line | awk '{ print $2 }'`
+			break
+		fi
+	done < /ifs/home/xzhou/bin/myssh.config
+fi
+ssh $user@$host
